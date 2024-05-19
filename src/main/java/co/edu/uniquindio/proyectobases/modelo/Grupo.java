@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyectobases.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -29,7 +30,7 @@ public class Grupo {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "PROFESORES_ID_USUARIO", nullable = false)
-    @JsonIgnoreProperties("usuarios")
+    @JsonIgnore
     private Profesor profesoresIdUsuario;
 
 }

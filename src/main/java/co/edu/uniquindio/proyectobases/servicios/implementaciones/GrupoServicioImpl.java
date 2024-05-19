@@ -37,7 +37,7 @@ public class GrupoServicioImpl implements GrupoServicio {
     }
 
     @Override
-    public List<Grupo> listarGrupos() {
-        return null;
+    public List<Object[]> listarGrupos() {
+        return grupoRepository.obtenerGrupos();
     }
 }

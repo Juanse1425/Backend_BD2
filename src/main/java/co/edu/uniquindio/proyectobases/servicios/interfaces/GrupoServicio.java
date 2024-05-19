@@ -9,5 +9,5 @@ public interface GrupoServicio {
     Grupo actualizarGrupo(Grupo grupo) throws Exception;
     void eliminarGrupo(Long id) throws Exception;
     Grupo obtenerGrupo(Long id) throws Exception;
-    List<Grupo> listarGrupos();
+    List<Object[]> listarGrupos();
 }

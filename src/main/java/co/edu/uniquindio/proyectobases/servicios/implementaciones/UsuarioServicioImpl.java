@@ -42,4 +42,13 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     public List<Usuario> listarUsuarios() {
         return null;
     }
+
+    public Usuario login(String correo, String contrasena) {
+        Usuario usuario = usuarioRepository.findByCorreo(correo);
+        if(usuario != null && usuario.getContrasena().equals(contrasena)) {
+            return usuario;
+        }else{
+            throw new RuntimeException("Correo o contraseña incorrectos");
+        }
+    }
 }

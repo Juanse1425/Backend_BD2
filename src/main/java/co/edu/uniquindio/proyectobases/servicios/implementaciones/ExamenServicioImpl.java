@@ -29,7 +29,7 @@ public class ExamenServicioImpl implements ExamenServicio {
 
     @Override
     public Examen obtenerExamen(Long id) throws Exception {
-        return null;
+        return examenRepository.findById(id).orElse(null);
     }
 
     @Override

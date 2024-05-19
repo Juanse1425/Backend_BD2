@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyectobases.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -13,7 +14,6 @@ import java.time.LocalDate;
 @Table(name = "EXAMENES_PRESENTADOS")
 public class ExamenPresentado {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_EXAMEN_PRESENTADO", nullable = false)
     private Long id;
 
@@ -32,11 +32,13 @@ public class ExamenPresentado {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "EXAMENES_ID_EXAMEN", nullable = false)
+    @JsonIgnore
     private Examen examenesIdExamen;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ESTUDIANTES_ID_USUARIO", nullable = false)
+    @JsonIgnore
     private Estudiante estudiantesIdUsuario;
 
     @NotNull

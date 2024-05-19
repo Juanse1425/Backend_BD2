@@ -1,5 +1,7 @@
 package co.edu.uniquindio.proyectobases.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -16,11 +18,13 @@ public class PreguntaExamen {
     @MapsId("preguntasIdPregunta")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "PREGUNTAS_ID_PREGUNTA", nullable = false)
+    @JsonIgnoreProperties("profesoresIdUsuario")
     private Pregunta preguntasIdPregunta;
 
     @MapsId("examenesIdExamen")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "EXAMENES_ID_EXAMEN", nullable = false)
+    @JsonIgnore
     private Examen examenesIdExamen;
 
     @NotNull
