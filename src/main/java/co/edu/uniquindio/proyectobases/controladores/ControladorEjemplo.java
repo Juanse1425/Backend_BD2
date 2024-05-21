@@ -22,6 +22,7 @@ public class ControladorEjemplo {
     private final TipoPreguntaServicioImpl tipoPreguntaServicioImpl;
     private final PreguntaServicioImpl preguntaServicioImpl;
     private final PreguntaExamenServicioImpl preguntaExamenServicioImpl;
+    private final OpcionServicioImpl opcionServicioImpl;
 
     @PostMapping({"/grupos"})
     public ResponseEntity<?> crearGrupo(@RequestBody GrupoDto grupoDto) {
@@ -105,9 +106,9 @@ public class ControladorEjemplo {
             examen.setTemasIdContenido(temaServicioImpl.obtenerTema(examenDto.idTema()));
             examen.setGruposIdGrupo(grupoServicioImpl.obtenerGrupo(examenDto.idGrupo()));
             Examen examenCreado = examenServicioImpl.crearExamen(examen);
-            return ResponseEntity.ok().body(examenCreado);
+            return ResponseEntity.ok().body(new MensajeDto<>(examenCreado.getId(),null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
         }
     }
 
@@ -121,6 +122,15 @@ public class ControladorEjemplo {
             return ResponseEntity.ok().body(tipoPreguntaCreado);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping({"/listarTiposPreguntas"})
+    public ResponseEntity<?> listarTiposPreguntas() {
+        try{
+            return ResponseEntity.ok().body(new MensajeDto<>(tipoPreguntaServicioImpl.listarTiposPreguntas(), null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
         }
     }
 
@@ -138,9 +148,9 @@ public class ControladorEjemplo {
             pregunta.setTemasIdContenido(temaServicioImpl.obtenerTema(preguntaDto.idTema()));
             pregunta.setTiposPreguntasIdTipo(tipoPreguntaServicioImpl.obtenerTipoPregunta(preguntaDto.idTipoPregunta()));
             Pregunta preguntaCreada = preguntaServicioImpl.registrarPregunta(pregunta);
-            return ResponseEntity.ok().body(preguntaCreada);
+            return ResponseEntity.ok().body(new MensajeDto<>(preguntaCreada.getId(),null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
         }
     }
 
@@ -156,9 +166,9 @@ public class ControladorEjemplo {
             preguntaExamen.setPreguntasIdPregunta(preguntaServicioImpl.obtenerPregunta(preguntaExamenDto.idPregunta()));
             preguntaExamen.setExamenesIdExamen(examenServicioImpl.obtenerExamen(preguntaExamenDto.idExamen()));
             PreguntaExamen preguntaExamenCreado = preguntaExamenServicioImpl.crearPreguntaExamen(preguntaExamen);
-            return ResponseEntity.ok().body(preguntaExamenCreado);
+            return ResponseEntity.ok().body(new MensajeDto<>(preguntaExamenCreado.getId(),null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
         }
     }
 
@@ -166,6 +176,38 @@ public class ControladorEjemplo {
     public ResponseEntity<?> listarGrupos() {
         try{
             return ResponseEntity.ok().body(new MensajeDto<>(grupoServicioImpl.listarGrupos(), null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
+        }
+    }
+
+    @PostMapping({"/listarGruposProfesor"})
+    public ResponseEntity<?> listarGruposProfesor(@RequestBody Long idProfesor) {
+        try{
+            return ResponseEntity.ok().body(new MensajeDto<>(grupoServicioImpl.listarGruposProfesor(idProfesor),null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
+        }
+    }
+
+    @PostMapping({"/obtenerTemasGrupo"})
+    public ResponseEntity<?> obtenerTemasGrupo(@RequestBody Long idGrupo) {
+        try{
+            return ResponseEntity.ok().body(new MensajeDto<>(temaServicioImpl.obtenerTemasGrupo(idGrupo),null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
+        }
+    }
+
+    @PostMapping({"/opcion"})
+    public ResponseEntity<?> crearOpcion(@RequestBody OpcionDto opcionDto) {
+        Opcion opcion = new Opcion();
+        opcion.setTexto(opcionDto.texto());
+        opcion.setRespuesta(opcionDto.respuesta());
+        try{
+            opcion.setPreguntasIdPregunta(preguntaServicioImpl.obtenerPregunta(opcionDto.idPregunta()));
+            Opcion opcionCreada = opcionServicioImpl.registrarOpcion(opcion);
+            return ResponseEntity.ok().body(new MensajeDto<>(opcionCreada.getId(),null));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
         }

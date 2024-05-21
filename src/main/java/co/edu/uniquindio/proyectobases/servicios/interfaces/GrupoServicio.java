@@ -10,4 +10,6 @@ public interface GrupoServicio {
     void eliminarGrupo(Long id) throws Exception;
     Grupo obtenerGrupo(Long id) throws Exception;
     List<Object[]> listarGrupos();
+
+    List<Object[]> listarGruposProfesor(Long idProfesor);
 }

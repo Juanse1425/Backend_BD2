@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Tema {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tema_seq_gen")
-    @SequenceGenerator(name = "tema_seq_gen", sequenceName = "tema_seq", allocationSize = 1)
+    @SequenceGenerator(name = "tema_seq_gen", sequenceName = "tema_seq", allocationSize = 1, initialValue = 11)
     @Column(name = "ID_CONTENIDO", nullable = false)
     private Long id;
 

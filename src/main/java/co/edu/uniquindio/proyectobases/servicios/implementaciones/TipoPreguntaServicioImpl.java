@@ -33,7 +33,7 @@ public class TipoPreguntaServicioImpl implements TipoPreguntaServicio {
     }
 
     @Override
-    public List<TipoPregunta> listarTiposPreguntas() {
-        return null;
+    public List<Object[]> listarTiposPreguntas() {
+        return tipoPreguntaRepository.obtenerTiposPreguntas();
     }
 }

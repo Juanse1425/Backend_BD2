@@ -15,7 +15,7 @@ public class TipoPregunta {
     @Column(name = "ID_TIPO", nullable = false)
     @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_pregunta_seq_gen")
-    @SequenceGenerator(name = "tipo_pregunta_seq_gen", sequenceName = "tipo_pregunta_seq", allocationSize = 1)
+    @SequenceGenerator(name = "tipo_pregunta_seq_gen", sequenceName = "tipo_pregunta_seq", allocationSize = 1, initialValue = 5)
     private Long id;
 
     @Size(max = 400)

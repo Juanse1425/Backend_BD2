@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyectobases.servicios.implementaciones;
 
 import co.edu.uniquindio.proyectobases.modelo.Grupo;
+import co.edu.uniquindio.proyectobases.modelo.Profesor;
 import co.edu.uniquindio.proyectobases.repositorios.GrupoRepository;
 import co.edu.uniquindio.proyectobases.servicios.interfaces.GrupoServicio;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +40,10 @@ public class GrupoServicioImpl implements GrupoServicio {
     @Override
     public List<Object[]> listarGrupos() {
         return grupoRepository.obtenerGrupos();
+    }
+
+    @Override
+    public List<Object[]> listarGruposProfesor(Long idProfesor) {
+        return grupoRepository.obtenerGruposProfesor(idProfesor);
     }
 }

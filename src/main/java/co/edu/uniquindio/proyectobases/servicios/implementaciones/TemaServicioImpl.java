@@ -36,4 +36,8 @@ public class TemaServicioImpl implements TemaServicio {
     public List<Tema> listarTemas() {
         return null;
     }
+
+    public List<Object[]> obtenerTemasGrupo(Long idGrupo) {
+        return temaRepository.obtenerTemasGrupo(idGrupo);
+    }
 }

@@ -12,7 +12,8 @@ import lombok.Setter;
 @Table(name = "OPCIONES")
 public class Opcion {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "opcion_seq_gen")
+    @SequenceGenerator(name = "opcion_seq_gen", sequenceName = "opcion_seq", allocationSize = 1)
     @Column(name = "ID_OPCION", nullable = false)
     private Long id;
 

@@ -9,5 +9,5 @@ public interface TipoPreguntaServicio {
     public void eliminarTipoPregunta(String tipo);
     public TipoPregunta actualizarTipoPregunta(TipoPregunta tipoPregunta);
     public TipoPregunta obtenerTipoPregunta(Long tipo);
-    List<TipoPregunta> listarTiposPreguntas();
+    List<Object[]> listarTiposPreguntas();
 }
