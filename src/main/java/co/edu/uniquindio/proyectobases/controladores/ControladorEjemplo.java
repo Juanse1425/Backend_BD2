@@ -30,7 +30,7 @@ public class ControladorEjemplo {
         grupo.setId(grupoDto.id());
         grupo.setNombre(grupoDto.nombre());
         grupo.setDescripcion(grupoDto.descripcion());
-        try{
+        try {
             grupo.setProfesoresIdUsuario(profesorServicioImpl.obtenerProfesor(grupoDto.idProfesor()));
             Grupo grupoCreado = grupoServicioImpl.crearGrupo(grupo);
             return ResponseEntity.ok().body(grupoCreado);
@@ -43,7 +43,7 @@ public class ControladorEjemplo {
     public ResponseEntity<?> crearCurso(@RequestBody CursoDto cursoDto) {
         Curso curso = new Curso();
         curso.setNombre(cursoDto.nombre());
-        try{
+        try {
             Curso cursoCreado = cursoServicioImpl.crearCurso(curso);
             return ResponseEntity.ok().body(cursoCreado);
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class ControladorEjemplo {
         PlanEstudio planEstudio = new PlanEstudio();
         planEstudio.setNombre(planEstudioDto.nombre());
         planEstudio.setDescripcion(planEstudioDto.descripcion());
-        try{
+        try {
             planEstudio.setCursosCodigo(cursoServicioImpl.obtenerCurso(planEstudioDto.idCurso()));
             PlanEstudio planEstudioCreado = planEstudioServicioImpl.crearPlanEstudio(planEstudio);
             return ResponseEntity.ok().body(planEstudioCreado);
@@ -71,7 +71,7 @@ public class ControladorEjemplo {
         Unidad unidad = new Unidad();
         unidad.setNombre(unidadDto.nombre());
         unidad.setDescripcion(unidadDto.descripcion());
-        try{
+        try {
             unidad.setPlanEstudiosIdPlan(planEstudioServicioImpl.obtenerPlanEstudio(unidadDto.idPlanEstudio()));
             Unidad unidadCreada = unidadServicioImpl.crearUnidad(unidad);
             return ResponseEntity.ok().body(unidadCreada);
@@ -85,7 +85,7 @@ public class ControladorEjemplo {
         Tema tema = new Tema();
         tema.setNombre(temaDto.nombre());
         tema.setDescripcion(temaDto.descripcion());
-        try{
+        try {
             tema.setUnidadesIdUnidad(unidadServicioImpl.obtenerUnidad(temaDto.idUnidad()));
             Tema temaCreado = temaServicioImpl.crearTema(tema);
             return ResponseEntity.ok().body(temaCreado);
@@ -102,13 +102,13 @@ public class ControladorEjemplo {
         examen.setDuracion(examenDto.duracion());
         examen.setCantidadTotalPreguntas(examenDto.cantidadTotalPreguntas());
         examen.setCantidadPreguntas(examenDto.cantidadPreguntas());
-        try{
+        try {
             examen.setTemasIdContenido(temaServicioImpl.obtenerTema(examenDto.idTema()));
             examen.setGruposIdGrupo(grupoServicioImpl.obtenerGrupo(examenDto.idGrupo()));
             Examen examenCreado = examenServicioImpl.crearExamen(examen);
-            return ResponseEntity.ok().body(new MensajeDto<>(examenCreado.getId(),null));
+            return ResponseEntity.ok().body(new MensajeDto<>(examenCreado.getId(), null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null, e.getMessage()));
         }
     }
 
@@ -117,7 +117,7 @@ public class ControladorEjemplo {
         TipoPregunta tipoPregunta = new TipoPregunta();
         tipoPregunta.setNombre(tipoPreguntaDto.nombre());
         tipoPregunta.setDescripcion(tipoPreguntaDto.descripcion());
-        try{
+        try {
             TipoPregunta tipoPreguntaCreado = tipoPreguntaServicioImpl.registrarTipoPregunta(tipoPregunta);
             return ResponseEntity.ok().body(tipoPreguntaCreado);
         } catch (Exception e) {
@@ -127,10 +127,10 @@ public class ControladorEjemplo {
 
     @GetMapping({"/listarTiposPreguntas"})
     public ResponseEntity<?> listarTiposPreguntas() {
-        try{
+        try {
             return ResponseEntity.ok().body(new MensajeDto<>(tipoPreguntaServicioImpl.listarTiposPreguntas(), null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null, e.getMessage()));
         }
     }
 
@@ -139,18 +139,18 @@ public class ControladorEjemplo {
         Pregunta pregunta = new Pregunta();
         pregunta.setPreguntaTexto(preguntaDto.preguntaTexto());
         pregunta.setPrivacidad(preguntaDto.privacidad());
-        try{
+        try {
             pregunta.setProfesoresIdUsuario(profesorServicioImpl.obtenerProfesor(preguntaDto.idProfesor()));
-            if(preguntaDto.idPreguntaPadre() != null){
+            if (preguntaDto.idPreguntaPadre() != null) {
                 pregunta.setPreguntasIdPregunta(preguntaServicioImpl.obtenerPregunta(preguntaDto.idPreguntaPadre()));
 
             }
             pregunta.setTemasIdContenido(temaServicioImpl.obtenerTema(preguntaDto.idTema()));
             pregunta.setTiposPreguntasIdTipo(tipoPreguntaServicioImpl.obtenerTipoPregunta(preguntaDto.idTipoPregunta()));
             Pregunta preguntaCreada = preguntaServicioImpl.registrarPregunta(pregunta);
-            return ResponseEntity.ok().body(new MensajeDto<>(preguntaCreada.getId(),null));
+            return ResponseEntity.ok().body(new MensajeDto<>(preguntaCreada.getId(), null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null, e.getMessage()));
         }
     }
 
@@ -162,40 +162,40 @@ public class ControladorEjemplo {
         PreguntaExamen preguntaExamen = new PreguntaExamen();
         preguntaExamen.setId(preguntaExamenId);
         preguntaExamen.setPorcentajePregunta(preguntaExamenDto.porcentajePregunta());
-        try{
+        try {
             preguntaExamen.setPreguntasIdPregunta(preguntaServicioImpl.obtenerPregunta(preguntaExamenDto.idPregunta()));
             preguntaExamen.setExamenesIdExamen(examenServicioImpl.obtenerExamen(preguntaExamenDto.idExamen()));
             PreguntaExamen preguntaExamenCreado = preguntaExamenServicioImpl.crearPreguntaExamen(preguntaExamen);
-            return ResponseEntity.ok().body(new MensajeDto<>(preguntaExamenCreado.getId(),null));
+            return ResponseEntity.ok().body(new MensajeDto<>(preguntaExamenCreado.getId(), null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null, e.getMessage()));
         }
     }
 
     @GetMapping({"/listarGrupos"})
     public ResponseEntity<?> listarGrupos() {
-        try{
+        try {
             return ResponseEntity.ok().body(new MensajeDto<>(grupoServicioImpl.listarGrupos(), null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null, e.getMessage()));
         }
     }
 
     @PostMapping({"/listarGruposProfesor"})
     public ResponseEntity<?> listarGruposProfesor(@RequestBody Long idProfesor) {
-        try{
-            return ResponseEntity.ok().body(new MensajeDto<>(grupoServicioImpl.listarGruposProfesor(idProfesor),null));
+        try {
+            return ResponseEntity.ok().body(new MensajeDto<>(grupoServicioImpl.listarGruposProfesor(idProfesor), null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null, e.getMessage()));
         }
     }
 
     @PostMapping({"/obtenerTemasGrupo"})
     public ResponseEntity<?> obtenerTemasGrupo(@RequestBody Long idGrupo) {
-        try{
-            return ResponseEntity.ok().body(new MensajeDto<>(temaServicioImpl.obtenerTemasGrupo(idGrupo),null));
+        try {
+            return ResponseEntity.ok().body(new MensajeDto<>(temaServicioImpl.obtenerTemasGrupo(idGrupo), null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null, e.getMessage()));
         }
     }
 
@@ -204,13 +204,30 @@ public class ControladorEjemplo {
         Opcion opcion = new Opcion();
         opcion.setTexto(opcionDto.texto());
         opcion.setRespuesta(opcionDto.respuesta());
-        try{
+        try {
             opcion.setPreguntasIdPregunta(preguntaServicioImpl.obtenerPregunta(opcionDto.idPregunta()));
             Opcion opcionCreada = opcionServicioImpl.registrarOpcion(opcion);
-            return ResponseEntity.ok().body(new MensajeDto<>(opcionCreada.getId(),null));
+            return ResponseEntity.ok().body(new MensajeDto<>(opcionCreada.getId(), null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MensajeDto<>(null,e.getMessage()));
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null, e.getMessage()));
         }
     }
 
+    @PostMapping({"/bancoPrivado"})
+    public ResponseEntity<?> obtenerPreguntasPrivadas(@RequestBody BancoDto bancoDto) {
+        try {
+            return ResponseEntity.ok().body(new MensajeDto<>(preguntaServicioImpl.obtenerPreguntasPrivadas(bancoDto.idProfesor(), bancoDto.idTema()), null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null, e.getMessage()));
+        }
+    }
+
+    @PostMapping({"/bancoPublico"})
+    public ResponseEntity<?> obtenerPreguntasPublicas(@RequestBody Long idTema) {
+        try {
+            return ResponseEntity.ok().body(new MensajeDto<>(preguntaServicioImpl.obtenerPreguntasPublicas(idTema), null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null, e.getMessage()));
+        }
+    }
 }
