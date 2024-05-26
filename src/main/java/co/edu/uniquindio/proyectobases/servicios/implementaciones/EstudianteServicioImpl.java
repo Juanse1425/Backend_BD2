@@ -6,7 +6,10 @@ import co.edu.uniquindio.proyectobases.servicios.interfaces.EstudianteServicio;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -35,5 +38,22 @@ public class EstudianteServicioImpl implements EstudianteServicio {
     @Override
     public List<Estudiante> listarEstudiantes() {
         return null;
+    }
+
+    public List<Object> obtenerExamenesEstudiante(Long idEstudiante) {
+        List<Object[]> results = estudianteRepository.obtenerExamenesEstudiante(idEstudiante);
+        List<Object> examenes = new ArrayList<>();
+
+        for(Object[] result : results){
+            Long id = (Long) result[0];
+            String name = (String) result[1];
+            Map<String, Object> examenesMap = new HashMap<>();
+            examenesMap.put("id", id);
+            examenesMap.put("name", name);
+            examenes.add(examenesMap);
+        }
+
+
+        return examenes;
     }
 }

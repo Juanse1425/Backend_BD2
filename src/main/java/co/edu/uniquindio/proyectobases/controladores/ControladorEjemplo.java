@@ -23,6 +23,7 @@ public class ControladorEjemplo {
     private final PreguntaServicioImpl preguntaServicioImpl;
     private final PreguntaExamenServicioImpl preguntaExamenServicioImpl;
     private final OpcionServicioImpl opcionServicioImpl;
+    private final EstudianteServicioImpl estudianteServicioImpl;
 
     @PostMapping({"/grupos"})
     public ResponseEntity<?> crearGrupo(@RequestBody GrupoDto grupoDto) {
@@ -226,6 +227,15 @@ public class ControladorEjemplo {
     public ResponseEntity<?> obtenerPreguntasPublicas(@RequestBody Long idTema) {
         try {
             return ResponseEntity.ok().body(new MensajeDto<>(preguntaServicioImpl.obtenerPreguntasPublicas(idTema), null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MensajeDto<>(null, e.getMessage()));
+        }
+    }
+
+    @PostMapping({"/examenesEstudiante"})
+    public ResponseEntity<?> obtenerExamenesEstudiante(@RequestBody Long idEstudiante) {
+        try {
+            return ResponseEntity.ok().body(new MensajeDto<>(estudianteServicioImpl.obtenerExamenesEstudiante(idEstudiante), null));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MensajeDto<>(null, e.getMessage()));
         }
